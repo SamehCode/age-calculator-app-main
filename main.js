@@ -12,15 +12,28 @@ let yearsResult = document.querySelector('#years span');
 let monthsResult = document.querySelector('#months span');
 let daysResult = document.querySelector('#days span');
 
+let currentDate = new Date().getTime()
+
 
 form.addEventListener('submit', (e) => {
+    e.preventDefault()
     let allInputs = document.querySelectorAll('#form input');
     let allResInputs = document.querySelectorAll('#results > div span');
     let allLabels = document.querySelectorAll('.input-control label');
+
+
+    let dateCount = new Date(`${month.value}-${day.value}-${year.value}`).getTime()
+
+    let dateDiff = currentDate - dateCount
+
+
+
+    yearsResult.innerHTML = Math.floor(dateDiff / (1000 * 60 * 60 * 24 * 365))
+    console.log(Math.floor(dateDiff / (1000 * 60 * 60 * 24 * 365)))
+    monthsResult.innerHTML = Math.floor(dateDiff / (1000 * 60 * 60 * 24 * 365) / (1000 * 60 * 60 * 24 * 30))
+    daysResult.innerHTML = '--'
     e.preventDefault();
     allInputs.forEach(input => {
-        console.log(parseInt(input.value))
-        
         if ( parseInt(input.value) == NaN ) {
             input.parentElement.querySelector('span').classList.add('show');
             input.parentElement.querySelector('.bottom-e').innerText = 'Must be a Valid Date'; 
@@ -59,8 +72,5 @@ form.addEventListener('submit', (e) => {
         }
 
     })
-    yearsResult.innerHTML = year.value
 
 }) 
-
-
