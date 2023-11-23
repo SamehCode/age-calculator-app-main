@@ -1,4 +1,4 @@
-// declare the main vars
+// // declare the main vars
 let day = document.getElementById('day');
 let month = document.getElementById('month');
 let year = document.getElementById('year');
@@ -17,6 +17,7 @@ let currentDate = new Date().getTime()
 
 form.addEventListener('submit', (e) => {
     e.preventDefault()
+    console.log(currentDate)
     let allInputs = document.querySelectorAll('#form input');
     let allResInputs = document.querySelectorAll('#results > div span');
     let allLabels = document.querySelectorAll('.input-control label');
@@ -29,9 +30,9 @@ form.addEventListener('submit', (e) => {
 
 
     yearsResult.innerHTML = Math.floor(dateDiff / (1000 * 60 * 60 * 24 * 365))
-    console.log(Math.floor(dateDiff / (1000 * 60 * 60 * 24 * 365)))
-    monthsResult.innerHTML = Math.floor(dateDiff / (1000 * 60 * 60 * 24 * 365) / (1000 * 60 * 60 * 24 * 30))
-    daysResult.innerHTML = '--'
+
+    monthsResult.innerHTML = Math.floor(dateDiff % (1000 * 60 * 60 * 24 * 365) / (1000 * 60 * 60 * 30))
+    daysResult.innerHTML = Math.floor(dateDiff % (1000 * 60 * 60 * 24 * 30)  / (1000 * 60 * 60 * 24))
     e.preventDefault();
     allInputs.forEach(input => {
         if ( parseInt(input.value) == NaN ) {
@@ -70,7 +71,7 @@ form.addEventListener('submit', (e) => {
             year.parentElement.querySelector('.bottom-e').innerText = '';
             year.parentElement.querySelector('label').style.color = '';
         }
-
+      
     })
 
 }) 
