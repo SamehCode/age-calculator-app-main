@@ -12,7 +12,7 @@ let yearsResult = document.querySelector('#years span');
 let monthsResult = document.querySelector('#months span');
 let daysResult = document.querySelector('#days span');
 
-let currentDate = new Date().getTime()
+let currentDate = new Date()
 
 
 form.addEventListener('submit', (e) => {
@@ -23,18 +23,33 @@ form.addEventListener('submit', (e) => {
     let allLabels = document.querySelectorAll('.input-control label');
 
 
-    let dateCount = new Date(`${month.value}-${day.value}-${year.value}`).getTime()
+    let dateCount = new Date(`${month.value}-${day.value}-${year.value}`)
 
-    let dateDiff = currentDate - dateCount
+    let dateNow = new Date()
 
 
+    daysResult.innerHTML = dateNow.getDate() - dateCount.getDate()
+    monthsResult.innerHTML = dateNow.getMonth() - dateCount.getMonth()
+    yearsResult.innerHTML = dateNow.getFullYear() - dateCount.getFullYear()
 
-    yearsResult.innerHTML = Math.floor(dateDiff / (1000 * 60 * 60 * 24 * 365))
-
-    monthsResult.innerHTML = Math.floor(dateDiff % (1000 * 60 * 60 * 24 * 365) / (1000 * 60 * 60 * 30))
-    daysResult.innerHTML = Math.floor(dateDiff % (1000 * 60 * 60 * 24 * 30)  / (1000 * 60 * 60 * 24))
     e.preventDefault();
     allInputs.forEach(input => {
+        if (day.value.match(/\d{1,2}/g) == null) {
+            day.parentElement.querySelector('span').classList.add('show');
+            day.parentElement.querySelector('.bottom-e').innerText = 'Must be a Valid Date'; 
+            
+            
+        }
+        if (month.value.match(/\d{1,2}/g) == null) {
+            input.parentElement.querySelector('span').classList.add('show');
+            input.parentElement.querySelector('.bottom-e').innerText = 'Must be a Valid Date'; 
+        }
+        if (year.value.match(/\d{0,3}/g)) {
+            year.parentElement.querySelector('span').classList.add('show');
+            year.parentElement.querySelector('.bottom-e').innerText = 'Must be a Valid Date'; 
+        } else {
+
+        }
         if ( parseInt(input.value) == NaN ) {
             input.parentElement.querySelector('span').classList.add('show');
             input.parentElement.querySelector('.bottom-e').innerText = 'Must be a Valid Date'; 
@@ -71,7 +86,15 @@ form.addEventListener('submit', (e) => {
             year.parentElement.querySelector('.bottom-e').innerText = '';
             year.parentElement.querySelector('label').style.color = '';
         }
-      
+        
+        if (dateCount.getDate() == NaN) {
+            day.parentElement.querySelector('.bottom-e').innerText = 'must be a valid date';
+            day.parentElement.querySelector('label').style.color = 'red';
+        } else {
+
+        }
+
+        
     })
 
 }) 
